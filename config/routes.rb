@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  post '/api/v1/signup' => 'users#create'
+  namespace :api do
+    namespace :v1 do
+      post '/signup' => 'users#create'
+    end
+  end
 end
