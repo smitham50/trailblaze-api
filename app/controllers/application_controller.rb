@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::API
-    # acts_as_token_authentication_handler_for User
-
     def login!
         session[:user_id] = @user.id
     end
