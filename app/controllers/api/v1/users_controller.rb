@@ -5,6 +5,7 @@ class Api::V1::UsersController < ApplicationController
             login!
             render json: {
                 status: :created,
+                logged_in: true,
                 user: @user.as_json(only: [:authentication_token])
             }
         else 

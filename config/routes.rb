@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       post '/signup' => 'users#create'
       post '/login' => 'sessions#create'
+      post '/logout' => 'sessions#destroy'
 
       patch '/update_address' => 'users#update'
     end
