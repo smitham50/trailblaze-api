@@ -6,7 +6,10 @@ class Api::V1::UsersController < ApplicationController
             render json: {
                 status: :created,
                 logged_in: true,
-                user: @user.as_json(only: [:authentication_token])
+                user: @user.as_json(only: [
+                    :authentication_token,
+                    :username
+                ])
             }
         else 
             render json: {
@@ -16,21 +19,8 @@ class Api::V1::UsersController < ApplicationController
         end
     end
 
-    def update
-        @user = User.find_by(params[:authentication_token])
-        @user.update(user_params)
-        if @user.save
-            render json: {
-                status: :update_successful,
-                user: @user.as_json(only: [:latitude, :longitude])
-            }
-        else
-            render json: {
-                status: 409,
-                errors: @user
-            }
-        end
-    end
+    # def update
+    # end
 
     private
     def user_params
@@ -39,10 +29,6 @@ class Api::V1::UsersController < ApplicationController
             :password,
             :password_confirmation,
             :email,
-            :address,
-            :city,
-            :state,
-            :zip,
             :authentication_token
         )
     end
