@@ -1,6 +1,7 @@
 class CreateTrails < ActiveRecord::Migration[6.0]
   def change
     create_table :trails do |t|
+      t.integer :trail_id
       t.string :name
       t.string :type
       t.string :summary

@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2020_10_05_034528) do
   enable_extension "plpgsql"
 
   create_table "trails", force: :cascade do |t|
+    t.integer "trail_id"
     t.string "name"
     t.string "type"
     t.string "summary"
@@ -41,6 +42,11 @@ ActiveRecord::Schema.define(version: 2020_10_05_034528) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "user_trails", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "trail_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
@@ -50,11 +56,6 @@ ActiveRecord::Schema.define(version: 2020_10_05_034528) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "authentication_token", limit: 30
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
-  end
-
-  create_table "users_trails", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "trail_id", null: false
   end
 
 end

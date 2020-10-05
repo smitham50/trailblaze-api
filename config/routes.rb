@@ -6,8 +6,6 @@ Rails.application.routes.draw do
       post '/login' => 'sessions#create'
       post '/logout' => 'sessions#destroy'
       post '/trails' => 'trails#index'
-
-      # patch '/update_address' => 'users#update'
     end
   end
 end
