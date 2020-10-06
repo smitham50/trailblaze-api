@@ -66,26 +66,28 @@ class Api::V1::TrailsController < ApplicationController
     def search_results user
         trails = []
 
-        while trails.length < 10 do
-            user.trails.each do |trail|
-                if trail.calculate_distance(params[:latitude], params[:longitude]).to_i <= params[:distance].to_i
-                    min_mileage = 0 
-                    max_mileage = 0
-                    case params[:mileage]
-                    when 'Less than 3'
-                        min_mileage = 0
-                        max_mileage = 3
-                    when '3 to 5'
-                        min_mileage = 3
-                        max_mileage = 5
-                    when '6 to 9'
-                        min_mileage = 6
-                        max_mileage = 9
-                    end
+        user.trails.each do |trail|
+            if trail.calculate_distance(params[:latitude], params[:longitude]).to_i <= params[:distance].to_i
+                min_mileage = 0 
+                max_mileage = 0
+                case params[:mileage]
+                when 'Less than 3'
+                    min_mileage = 0
+                    max_mileage = 3
+                when '3 to 5'
+                    min_mileage = 3
+                    max_mileage = 5
+                when '6 to 9'
+                    min_mileage = 6
+                    max_mileage = 9
+                end
 
+                if trails.length < 10
                     if !trails.include?(trail) && trail.length >= min_mileage.to_f && trail.length <= max_mileage.to_f
                         trails << trail
                     end
+                else
+                    break
                 end
             end
         end
