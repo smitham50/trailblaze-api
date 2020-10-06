@@ -13,4 +13,5 @@ class Trail < ApplicationRecord
     def calculate_distance(latitude, longitude)
         self.distance_to([latitude, longitude])
     end
+    
 end

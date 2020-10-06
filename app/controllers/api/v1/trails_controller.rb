@@ -70,6 +70,7 @@ class Api::V1::TrailsController < ApplicationController
             if trail.calculate_distance(params[:latitude], params[:longitude]).to_i <= params[:distance].to_i
                 min_mileage = 0 
                 max_mileage = 0
+                
                 case params[:mileage]
                 when 'Less than 3'
                     min_mileage = 0
