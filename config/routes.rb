@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       post '/signup' => 'users#create'
       post '/login' => 'sessions#create'
       post '/logout' => 'sessions#destroy'
-      post '/trails' => 'trails#index'
+      post '/trails' => 'trails#get_trails'
     end
   end
 end
