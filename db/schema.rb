@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_05_034528) do
+ActiveRecord::Schema.define(version: 2020_10_05_203447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 2020_10_05_034528) do
   create_table "trails", force: :cascade do |t|
     t.integer "trail_id"
     t.string "name"
-    t.string "type"
     t.string "summary"
     t.string "difficulty"
     t.float "stars"
@@ -43,8 +42,12 @@ ActiveRecord::Schema.define(version: 2020_10_05_034528) do
   end
 
   create_table "user_trails", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "trail_id"
+    t.bigint "user_id", null: false
+    t.bigint "trail_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["trail_id"], name: "index_user_trails_on_trail_id"
+    t.index ["user_id"], name: "index_user_trails_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,8 +57,8 @@ ActiveRecord::Schema.define(version: 2020_10_05_034528) do
     t.string "email"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "authentication_token", limit: 30
-    t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
   end
 
+  add_foreign_key "user_trails", "trails"
+  add_foreign_key "user_trails", "users"
 end

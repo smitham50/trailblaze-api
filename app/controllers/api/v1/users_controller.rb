@@ -1,4 +1,5 @@
 class Api::V1::UsersController < ApplicationController
+    skip_before_action :verify_authenticity_token
 
     def create
         @user = User.new(user_params)
@@ -8,7 +9,6 @@ class Api::V1::UsersController < ApplicationController
                 status: :created,
                 logged_in: true,
                 user: @user.as_json(only: [
-                    :authentication_token,
                     :username
                 ])
             }
@@ -29,8 +29,7 @@ class Api::V1::UsersController < ApplicationController
             :username, 
             :password,
             :password_confirmation,
-            :email,
-            :authentication_token
+            :email
         )
     end
 end
