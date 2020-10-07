@@ -19,6 +19,9 @@ class Api::V1::TrailsController < ApplicationController
 
         trails = search_results(user)
 
+        # Randomly choose 10 trails from search results
+        trails = random_ten(trails)
+
         render json: {
             status: :success,
             trails: trails
@@ -83,13 +86,10 @@ class Api::V1::TrailsController < ApplicationController
                     max_mileage = 9
                 end
 
-                if trails.length < 10
-                    if !trails.include?(trail) && trail.length >= min_mileage.to_f && trail.length <= max_mileage.to_f
-                        trails << trail
-                    end
-                else
-                    break
+                if !trails.include?(trail) && trail.length >= min_mileage.to_f && trail.length <= max_mileage.to_f
+                    trails << trail
                 end
+
             end
         end
         trails

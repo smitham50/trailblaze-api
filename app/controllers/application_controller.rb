@@ -25,6 +25,20 @@ class ApplicationController < ActionController::API
         session.clear
     end
 
+    def random_ten(trails)
+        result = []
+        trails.shuffle!
+
+        trails.each do |trail|
+            if result.length < 10
+                result << trail
+            else
+                break
+            end
+        end
+        result
+    end
+
     private
 
     def set_csrf_cookie
