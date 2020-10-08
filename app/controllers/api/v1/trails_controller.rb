@@ -17,10 +17,12 @@ class Api::V1::TrailsController < ApplicationController
             add_trails(trail_hash, user)
         end
 
-        trails = search_results(user)
-
-        # Randomly choose 10 trails from search results
-        trails = random_ten(trails)
+        trails = user.search_results(
+                    params[:latitude], 
+                    params[:longitude], 
+                    params[:mileage],
+                    params[:distance]
+                ).random_ten
 
         render json: {
             status: :success,
@@ -62,37 +64,6 @@ class Api::V1::TrailsController < ApplicationController
                 user.trails << new_trail
             end
         end
-    end
-
-    # Maybe not the best place for this method, but I do need the lat/long params.
-    # Think of better way to handle this.
-    def search_results user
-        trails = []
-
-        user.trails.each do |trail|
-            if trail.calculate_distance(params[:latitude], params[:longitude]).to_i <= params[:distance].to_i
-                min_mileage = 0 
-                max_mileage = 0
-                
-                case params[:mileage]
-                when 'Less than 3'
-                    min_mileage = 0
-                    max_mileage = 3
-                when '3 to 5'
-                    min_mileage = 3
-                    max_mileage = 5
-                when '6 to 9'
-                    min_mileage = 6
-                    max_mileage = 9
-                end
-
-                if !trails.include?(trail) && trail.length >= min_mileage.to_f && trail.length <= max_mileage.to_f
-                    trails << trail
-                end
-
-            end
-        end
-        trails
     end
 
 end

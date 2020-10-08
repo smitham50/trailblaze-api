@@ -20,6 +20,7 @@ require "rails/test_unit/railtie"
 Bundler.require(*Rails.groups)
 
 module TrailblazeApi
+module Trail_Logic
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
@@ -34,7 +35,10 @@ module TrailblazeApi
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    config.autoload_paths += %W(#{config.root}/lib)
+
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
   end
+end
 end
