@@ -17,12 +17,14 @@ class Api::V1::TrailsController < ApplicationController
             add_trails(trail_hash, user)
         end
 
-        trails = user.search_results(
-                    params[:latitude], 
-                    params[:longitude], 
-                    params[:mileage],
-                    params[:distance]
-                ).random_ten
+        trails = user
+                    .search_results(
+                        params[:latitude], 
+                        params[:longitude], 
+                        params[:mileage],
+                        params[:distance]
+                    )
+                    .random_ten
 
         render json: {
             status: :success,
