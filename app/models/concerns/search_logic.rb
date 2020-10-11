@@ -8,7 +8,6 @@ module SearchLogic
         trails = []
 
         user.trails.each do |trail|
-            print "#{trail.calculate_distance(latitude, longitude).to_i}" + " #{trail.length}\n"
             if trail.calculate_distance(latitude, longitude).to_i <= distance.to_i
                 min_mileage = 0 
                 max_mileage = 0
@@ -25,8 +24,7 @@ module SearchLogic
                     max_mileage = 9
                 end
 
-                print "Meets condition? " + "#{!trails.include?(trail) && trail.length >= min_mileage.to_f && trail.length <= max_mileage.to_f}" 
-                if !trails.include?(trail) && trail.length >= min_mileage.to_f && trail.length <= max_mileage.to_f
+                if !trails.include?(trail) && trail.length >= min_mileage.to_f && trail.length <= max_mileage.to_f && trail.imgMedium != ""
                     trails << trail
                 end
 

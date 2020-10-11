@@ -36,7 +36,7 @@ class Api::V1::TrailsController < ApplicationController
     def add_trails(trail_hash, user)
         trail_hash["trails"].each do |trail|
             new_trail = nil
-            if !Trail.exists?(trail_id: trail["id"])
+            if !Trail.exists?(trail_id: trail["id"]) && trail["imgMedium"] != ""
                 new_trail = Trail.create!(
                     trail_id: trail["id"],
                     name: trail["name"],
