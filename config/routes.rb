@@ -3,8 +3,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       post '/signup' => 'users#create'
+
       post '/login' => 'sessions#create'
       post '/logout' => 'sessions#destroy'
+      get '/logged_in' => 'sessions#is_logged_in?'
+
       post '/trails' => 'trails#get_trails'
     end
   end

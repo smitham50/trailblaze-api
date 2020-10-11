@@ -9,6 +9,7 @@ class Api::V1::UsersController < ApplicationController
                 status: :created,
                 logged_in: true,
                 user: @user.as_json(only: [
+                    :id,
                     :username
                 ])
             }
