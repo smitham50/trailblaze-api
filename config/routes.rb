@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       post '/logout' => 'sessions#destroy'
       get '/logged_in' => 'sessions#is_logged_in?'
 
+      get '/trails/:slug' => 'trails#get_trail'
       post '/trails' => 'trails#get_trails'
     end
   end

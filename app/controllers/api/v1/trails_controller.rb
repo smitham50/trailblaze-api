@@ -4,6 +4,23 @@ require 'json'
 class Api::V1::TrailsController < ApplicationController
     include RestClient
 
+    def get_trail
+        trail_name = params[:slug].split('').map{|char| char == '-' ? ' ' : char}.join('')
+        trail = Trail.find_by(name: trail_name)
+
+        if trail
+            render json: {
+                status: :trail_found,
+                trail: trail
+            }
+        else
+            render json: {
+                status: :trail_not_found,
+                errors: trail.errors.full_messages
+            }
+        end
+    end
+
     # Index checks if user has trails stored in db and responds with them. Otherwise trails
     # are fetched from Hiking Project API and persisted to database and associated with
     # current user.
