@@ -1,12 +1,15 @@
 require 'rest-client'
 require 'json'
+require 'uri'
 
 class Api::V1::TrailsController < ApplicationController
     include RestClient
 
     def get_trail
-        trail_name = params[:slug].split('').map{|char| char == '-' ? ' ' : char}.join('')
+        trail_name = URI.unescape(params[:slug])
         trail = Trail.find_by(name: trail_name)
+
+        puts trail
 
         if trail
             render json: {
