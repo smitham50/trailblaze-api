@@ -88,4 +88,17 @@ class Api::V1::TrailsController < ApplicationController
         end
     end
 
+    # Reloads user's 10 search trails if they return to search page
+    def search_reload
+        trail_ids = params[:trail_ids]
+        trails = []
+
+        trail_ids.each {|id| trails << Trail.find_by(id: id.to_i)}
+
+        render json: {
+            status: :trails_found,
+            trails: trails
+        }
+    end
+
 end
