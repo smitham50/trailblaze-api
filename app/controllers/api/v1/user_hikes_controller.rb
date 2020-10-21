@@ -7,20 +7,24 @@ class Api::V1::UserHikesController < ApplicationController
 
     def add_trail_to_hikes
         trail_name = URI.unescape(params[:trail_name])
-        user = User.find_by(id: params[:user_id])
         trail = Trail.find_by(name: trail_name)
+        user = User.find_by(id: params[:user_id])
 
-        user_hike = UserHike.new(user.id, trail.id)
+        if !user.user_hikes.any? {|hike| trail.id == hike.id }
+            user_hike = UserHike.new(user_id: params[:user_id], trail_id: trail.id)
 
-        if user_hike.save
-            render json: {
-                status: :success
-            }
-        else
-            render json: {
-                status: 409,
-                error: user_hike.errors.full_messages
-            }
+            if user_hike.save
+                render json: {
+                    status: "Trail added to hikes"
+                }
+            else
+                render json: {
+                    status: 409,
+                    error: user_hike.errors.full_messages
+                }
+            end
         end
+
+        
     end
 end
