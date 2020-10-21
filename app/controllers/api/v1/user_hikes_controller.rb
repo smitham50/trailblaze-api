@@ -8,9 +8,8 @@ class Api::V1::UserHikesController < ApplicationController
     def add_trail_to_hikes
         trail_name = URI.unescape(params[:trail_name])
         trail = Trail.find_by(name: trail_name)
-        user = User.find_by(id: params[:user_id])
 
-        if !user.user_hikes.any? {|hike| trail.id == hike.id }
+        if !current_user.user_hikes.any? {|hike| trail.id == hike.id }
             user_hike = UserHike.new(user_id: params[:user_id], trail_id: trail.id)
 
             if user_hike.save
