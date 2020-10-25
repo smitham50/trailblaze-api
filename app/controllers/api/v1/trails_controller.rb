@@ -9,8 +9,6 @@ class Api::V1::TrailsController < ApplicationController
         trail_name = URI.unescape(params[:slug])
         trail = Trail.find_by(name: trail_name)
 
-        puts trail
-
         if trail
             render json: {
                 status: :trail_found,
@@ -34,7 +32,7 @@ class Api::V1::TrailsController < ApplicationController
             trail_json = RestClient.get(params[:url])
             trail_hash = JSON.parse(trail_json)
 
-            add_trails(trail_hash, user)
+            add_trails(trail_hash)
         end
 
         trails = user
@@ -53,9 +51,10 @@ class Api::V1::TrailsController < ApplicationController
     end
 
     # Adds trails to DB or pulls them from it if they already exist and associates them with user
-    def add_trails(trail_hash, user)
+    def add_trails(trail_hash)
         trail_hash["trails"].each do |trail|
             new_trail = nil
+            
             if !Trail.exists?(trail_id: trail["id"]) && trail["imgMedium"] != ""
                 new_trail = Trail.create!(
                     trail_id: trail["id"],
@@ -79,11 +78,13 @@ class Api::V1::TrailsController < ApplicationController
                     conditionDetails: trail["conditionDetails"]
                 )
             else
-                new_trail = Trail.where(:trail_id => trail["id"])
+                new_trail = Trail.find_by(trail_id: trail["id"])
             end
 
-            if !user.trails.exists?(new_trail)
-                user.trails << new_trail
+            user = current_user
+
+            if new_trail && !user.trails.exists?(id: new_trail.id)
+                UserTrail.create!(user_id: user.id, trail_id: new_trail.id)
             end
         end
     end

@@ -7,7 +7,7 @@ module SearchLogic
         user = self
         trails = []
 
-        user.trails.each do |trail|
+        user.trails.map do |trail|
             if trail.calculate_distance(latitude, longitude).to_i <= distance.to_i
                 min_mileage = 0 
                 max_mileage = 0
