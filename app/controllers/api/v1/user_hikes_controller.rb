@@ -3,6 +3,11 @@ require 'uri'
 class Api::V1::UserHikesController < ApplicationController
     def get_my_hikes
         user = current_user
+        hikes = user.user_hikes.map {|hike| Trail.find_by(id: hike.trail_id)}
+
+        render json: {
+            hikes: hikes
+        }
     end
 
     def add_trail_to_hikes

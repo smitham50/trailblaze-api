@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       post '/signup' => 'users#create'
       
       post '/my_hikes/add_hike' => 'user_hikes#add_trail_to_hikes'
-      get '/my_hikes/:user_id' => 'user_hikes#get_my_hikes'
+      get '/my_hikes' => 'user_hikes#get_my_hikes'
 
       post '/login' => 'sessions#create'
       post '/logout' => 'sessions#destroy'
