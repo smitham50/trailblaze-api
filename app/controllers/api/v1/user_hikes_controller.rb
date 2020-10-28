@@ -15,7 +15,7 @@ class Api::V1::UserHikesController < ApplicationController
         trail = Trail.find_by(name: trail_name)
         user = current_user
 
-        if !user.user_hikes.any? {|hike| trail.id == hike.trail_id }
+        if !user.user_hikes.any? {|hike| trail.id == hike.trail_id}
             user_hike = UserHike.new(user_id: user.id, trail_id: trail.id)
             if user_hike.save
                 render json: {
