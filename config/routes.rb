@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       post '/signup' => 'users#create'
       
       post '/my_hikes/add_hike' => 'user_hikes#add_trail_to_hikes'
+      delete '/my_hikes/delete_hike/:trail_id' => 'user_hikes#destroy'
       get '/my_hikes' => 'user_hikes#get_my_hikes'
 
       post '/login' => 'sessions#create'

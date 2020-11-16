@@ -35,7 +35,23 @@ class Api::V1::UserHikesController < ApplicationController
                 error: "#{trail.name} already added to hikes"
             }
         end
+    end
+
+    def destroy
+        user_hike = UserHike.where(trail_id: params[:trail_id], user_id: current_user.id)[0]
+
+        if UserHike.destroy(user_hike.id)
+            render json: {
+                status: "Trail removed from user's hikes"
+            }
+        else
+            render json: {
+                status: :failure,
+                error: user_hike.errors.full_messages
+            }
+        end
 
         
+
     end
 end
