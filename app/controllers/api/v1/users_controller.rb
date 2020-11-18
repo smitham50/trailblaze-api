@@ -21,8 +21,29 @@ class Api::V1::UsersController < ApplicationController
         end
     end
 
-    # def update
-    # end
+    def update
+        changed_keys = params[:user].select{|key, value| current_user[key] != value}.keys
+
+        if changed_keys.length == 0
+            render json: {
+                status: "No changes submitted",
+                message: "You haven't submitted any changes",
+                error: true
+            }
+        elsif current_user.update user_params
+            message = "Successfully updated #{changed_keys.join(' and ')}"
+            render json: {
+                status: "Account updated",
+                message: message
+            }
+        else
+            render json: {
+                status: "Update failed",
+                error: current_user.errors.full_messages,
+                message: "Unable to update #{changed_keys.join(' and ')}"
+            }
+        end
+    end
 
     private
     def user_params

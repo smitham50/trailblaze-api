@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       post '/signup' => 'users#create'
+      patch '/update_account' => 'users#update'
       
       post '/my_hikes/add_hike' => 'user_hikes#add_trail_to_hikes'
       delete '/my_hikes/delete_hike/:trail_id' => 'user_hikes#destroy'
