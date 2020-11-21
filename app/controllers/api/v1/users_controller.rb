@@ -45,6 +45,22 @@ class Api::V1::UsersController < ApplicationController
         end
     end
 
+    def destroy
+        username = current_user[:username]
+
+        if current_user.destroy
+            render json: {
+                status: "Deleted",
+                message: "#{username}'s account has been successfully removed!"
+            }
+        else
+            render json: {
+                status: "Delete failed",
+                message: "Unable to delete #{username}'s account"
+            }
+        end
+    end
+
     private
     def user_params
         params.require(:user).permit(

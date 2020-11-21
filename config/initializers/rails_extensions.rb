@@ -1,11 +1,11 @@
 class Array
-    def random_ten
+    def random_twenty
         trails = self
         result = []
         trails.shuffle!
 
         trails.each do |trail|
-            if result.length < 10
+            if result.length < 20
                 result << trail
             else
                 break
