@@ -15,7 +15,9 @@ Rails.application.routes.draw do
       get '/logged_in' => 'sessions#is_logged_in?'
 
       get '/trails/:slug' => 'trails#get_trail'
-      post '/trails' => 'trails#get_trails'
+      post '/trails/search' => 'trails#search_trails'
+      post '/trails/associate_trails' => 'trails#associate_trails'
+      
       post '/search_reload' => 'trails#search_reload'
       
     end

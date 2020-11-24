@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-    include SearchLogic
+    include UserTrailActions
     has_secure_password
     validates :password, confirmation: true
     
