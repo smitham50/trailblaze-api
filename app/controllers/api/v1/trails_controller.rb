@@ -22,9 +22,6 @@ class Api::V1::TrailsController < ApplicationController
         end
     end
 
-    # Index checks if user has trails stored in db and responds with them. Otherwise trails
-    # are fetched from Hiking Project API and persisted to database and associated with
-    # current user.
     def associate_trails
         user = current_user
 
