@@ -56,6 +56,7 @@ class Api::V1::UsersController < ApplicationController
         else
             render json: {
                 status: "Delete failed",
+                errors: current_user.errors.full_messages,
                 message: "Unable to delete #{username}'s account"
             }
         end
