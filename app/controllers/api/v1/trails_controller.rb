@@ -4,7 +4,6 @@ require 'uri'
 
 class Api::V1::TrailsController < ApplicationController
     include RestClient
-    skip_before_action :verify_authenticity_token
 
     def get_trail
         trail_name = URI.unescape(params[:slug])
