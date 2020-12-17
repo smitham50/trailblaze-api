@@ -43,3 +43,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rest-client'
 gem 'json'
 gem 'geocoder'
+gem 'rails_same_site_cookie'
