@@ -19,7 +19,8 @@ Rails.application.routes.draw do
       post '/trails/associate_trails' => 'trails#associate_trails'
       
       post '/search_reload' => 'trails#search_reload'
-      
+
+      get '/map_auth' => 'maps#get_key'
     end
   end
 end
