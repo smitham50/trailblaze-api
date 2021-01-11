@@ -7,6 +7,7 @@ class Api::V1::SessionsController < ApplicationController
         if @user&.authenticate(session_params[:password])
             login!
             render json: {
+                status: 200,
                 logged_in: true,
                 user: @user.as_json(only: [
                     :id,
