@@ -1,4 +1,4 @@
-class Api::V1::MapsController < ApplicationController
+class Api::V1::MapsController < SecuredController
     def get_key
         render json: {
             key: Rails.application.credentials.google_maps_api_key

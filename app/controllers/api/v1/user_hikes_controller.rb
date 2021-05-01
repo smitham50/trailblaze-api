@@ -1,6 +1,6 @@
 require 'uri'
 
-class Api::V1::UserHikesController < ApplicationController
+class Api::V1::UserHikesController < SecuredController
     def get_my_hikes
         user = current_user
         hikes = user.user_hikes.map {|hike| Trail.find_by(id: hike.trail_id)}

@@ -1,2 +1,2 @@
-class Api::V1::UserTrailsController < ApplicationController
+class Api::V1::UserTrailsController < SecuredController
 end

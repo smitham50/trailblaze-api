@@ -2,7 +2,7 @@ require 'rest-client'
 require 'json'
 require 'uri'
 
-class Api::V1::TrailsController < ApplicationController
+class Api::V1::TrailsController < SecuredController
     include RestClient
 
     def get_trail
