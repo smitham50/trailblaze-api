@@ -48,7 +48,7 @@ class Api::V1::TrailsController < ApplicationController
                         params[:mileage],
                         params[:distance]
                     )
-                    .random_twenty
+                    # .random_twenty
 
         render json: {
             status: :success,
