@@ -23,6 +23,7 @@ class ApplicationController < ActionController::API
     end
 
     def logout!
+        current_user.trails.destroy_all
         session.clear
     end
 

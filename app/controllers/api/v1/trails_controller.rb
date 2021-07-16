@@ -56,7 +56,6 @@ class Api::V1::TrailsController < ApplicationController
         }
     end
 
-    # Reloads user's 20 search trails if they return to search page
     def search_reload
         trail_ids = params[:trail_ids]
         trails = []
